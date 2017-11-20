@@ -1,0 +1,23 @@
+#-----------------------------------------------------------
+# Vivado v2017.3 (64-bit)
+# SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+# IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+# Start of session at: Mon Nov 20 16:35:16 2017
+# Process ID: 11664
+# Current directory: C:/workspace/56_6/adder4
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent3948 C:\workspace\56_6\adder4\adder4.xpr
+# Log file: C:/workspace/56_6/adder4/vivado.log
+# Journal file: C:/workspace/56_6/adder4\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/workspace/56_6/adder4/adder4.xpr
+add_files -fileset constrs_1 -norecurse C:/Users/denjj/Downloads/nexys.xdc
+import_files -fileset constrs_1 C:/Users/denjj/Downloads/nexys.xdc
+import_files -norecurse {C:/Users/denjj/Downloads/top_module.v C:/Users/denjj/Downloads/adder.v}
+update_compile_order -fileset sources_1
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+import_files -fileset sim_1 -norecurse C:/Users/denjj/Downloads/testbench.v
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+launch_simulation
+source testbench.tcl
