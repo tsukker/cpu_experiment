@@ -1,32 +1,32 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
+// Company:
+// Engineer:
+//
 // Create Date: 2016/09/13 17:14:20
-// Design Name: 
+// Design Name:
 // Module Name: testbench
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
+// Project Name:
+// Target Devices:
+// Tool Versions:
+// Description:
+//
+// Dependencies:
+//
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
+//
 //////////////////////////////////////////////////////////////////////////////////
 module testbench();
-    reg clk; // input Ç™ reg
+    reg clk; // input „Åå reg
     reg [7:0] sw;
-    wire [7:0] led; // output ÇÕ wire
+    wire [7:0] led; // output „ÅØ wire
 
     wire [3:0] inL, inR;
     wire [4:0] result;
-    
-    top_module T0( // simulation ÇµÇΩÇ¢Ç‚Ç¬Ç instance âª
+
+    top_module T0( // simulation „Åó„Åü„ÅÑ„ÇÑ„Å§„Çí instance Âåñ
     .sysclk(clk),
     .sw(sw),
     .led(led)
@@ -61,7 +61,7 @@ module testbench();
     initial begin
         wait_posedge_clk(4);
         sw <= 8'b10101010;
-        
+
         wait_posedge_clk(10);
         sw <= 8'b00001111;
         wait_posedge_clk(10);
@@ -71,5 +71,5 @@ module testbench();
 
         $finish;
     end
-    
+
 endmodule
