@@ -1,0 +1,22 @@
+#-----------------------------------------------------------
+# Vivado v2017.3 (64-bit)
+# SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+# IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+# Start of session at: Tue Nov 28 14:32:19 2017
+# Process ID: 8540
+# Current directory: C:/Users/denjj/workspace/cpu_experiment/state_machine
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent1696 C:\Users\denjj\workspace\cpu_experiment\state_machine\state_machine.xpr
+# Log file: C:/Users/denjj/workspace/cpu_experiment/state_machine/vivado.log
+# Journal file: C:/Users/denjj/workspace/cpu_experiment/state_machine\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/denjj/workspace/cpu_experiment/state_machine/state_machine.xpr
+add_files -fileset constrs_1 -norecurse C:/Users/denjj/Downloads/nexys.xdc
+import_files -fileset constrs_1 C:/Users/denjj/Downloads/nexys.xdc
+import_files -norecurse {C:/Users/denjj/Downloads/vendingmachine.v C:/Users/denjj/Downloads/top_module2.v}
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+file mkdir C:/Users/denjj/workspace/cpu_experiment/state_machine/state_machine.srcs/sim_1/new
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+close [ open C:/Users/denjj/workspace/cpu_experiment/state_machine/state_machine.srcs/sim_1/new/testbench.v w ]
+add_files -fileset sim_1 C:/Users/denjj/workspace/cpu_experiment/state_machine/state_machine.srcs/sim_1/new/testbench.v
