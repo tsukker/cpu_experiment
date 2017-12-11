@@ -23,6 +23,8 @@
 module alu(
     input [31:0] inLeft,
     input [31:0] inRight,
+    input [5:0] op,
+    input [10:0] aux,
     output [31:0] result
     );
 

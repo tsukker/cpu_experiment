@@ -25,6 +25,14 @@ module top_module(
     );
 
     input sysclk;
+    wire ins;
+    wire op;
+    wire rs;
+    wire rt;
+    wire rd;
+    wire aux;
+
+
 
     decoder decoder0 (
         .instruction(ins),
@@ -44,15 +52,21 @@ module top_module(
     );
 
     reg_file reg_file0 (
-        .clk(sysclk)
-        .rstd(HOGE),
+        .clk(sysclk),
         .wr(result),
         .ra1(rs),
         .ra2(rt),
         .wa(rd),
-        .wren,
+        .wren(wren),
         .rr1(inLeft),
         .rr2(inRight)
-        );
     );
+
+    instruction_memory icache0 (
+    );
+
+    data_memory dcache0 (
+
+    );
+
 endmodule
