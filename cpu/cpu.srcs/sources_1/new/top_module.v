@@ -21,48 +21,81 @@
 
 
 module top_module(
-    sysclk
+        input sysclk
     );
 
-    input sysclk;
-    wire ins;
-    wire op;
-    wire rs;
-    wire rt;
-    wire rd;
-    wire aux;
+    wire [31:0] ins;
+    wire [5:0] op;
+    wire [5:0] opr_alu;
+    wire [4:0] shift;
+    wire [4:0] ra1;
+    wire [4:0] ra2;
+    wire [4:0] wa;
+    wire [31:0] wr;
+    wire [31:0] alu_result;
+    wire [31:0] npc;
+    wire [31:0] pc;
 
+    wire [31:0] imm;
+    wire [25:0] addr;
+    wire [31:0] inLeft;
+    wire [31:0] inRight;
+    wire wren;
 
+    pc pc0 (
+        .clk(sysclk),
+        .npc(npc),
+        .pc(pc)
+    );
+
+    instruction_memory icache0 (
+        .clk(sysclk),
+        .r_addr(pc[7:0]),
+        .r_data(ins)
+    );
 
     decoder decoder0 (
         .instruction(ins),
         .op(op),
-        .rs(rs),
-        .rt(rt),
-        .rd(rd),
-        .aux(aux)
-    );
-
-    alu alu0 (
-        .inLeft(inLeft),
-        .inRight(inRight),
-        .op(op),
-        .aux(aux),
-        .result(result)
+        .opr_alu(opr_alu),
+        .shift(shift),
+        .ra1(ra1),
+        .ra2(ra2),
+        .wa(wa),
+        .imm(imm),
+        .addr(addr)
     );
 
     reg_file reg_file0 (
         .clk(sysclk),
-        .wr(result),
-        .ra1(rs),
-        .ra2(rt),
-        .wa(rd),
+        .wr(wr),
+        .ra1(ra1),
+        .ra2(ra2),
+        .wa(wa),
         .wren(wren),
+        .op(op),
+        .imm(imm),
         .rr1(inLeft),
         .rr2(inRight)
     );
 
-    instruction_memory icache0 (
+    alu alu0 (
+        .clk(sysclk),
+        .inLeft(inLeft),
+        .inRight(inRight),
+        .opr(opr_alu),
+        .shift(shift),
+        .result(alu_result)
+    );
+
+    executor executor0 (
+        .clk(sysclk),
+        .pc(pc),
+        .op(op),
+        .addr(addr),
+        .alu_result(alu_result),
+        .wr(wr),
+        .npc(npc)
     );
 
     data_memory dcache0 (

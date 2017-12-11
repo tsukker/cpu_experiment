@@ -21,25 +21,43 @@
 
 
 module alu(
+    input clk,
     input [31:0] inLeft,
     input [31:0] inRight,
-    input [5:0] op,
+    input [5:0] opr,
+    input [4:0] shift,
     output [31:0] result
     );
     reg [31:0] res;
 
-    case (op)
-        5'd0: res = inLeft + inRight;
-        5'd2: res = inLeft - inRight;
-        5'd8: res = inLeft & inRight;
-        5'd9: res = inLeft | inRight;
-        5'd10: res = inLeft ^ inRight;
-        5'd11: res = ~(inLeft | inRight);
-        5'd16: res = inLeft << shift;
-        5'd17: res = inLeft >> shift;
-        5'd18: res = inLeft >>> shift;
-        default: res = 32'hffffffff;
-    endcase
+    reg [7:0] clk_counter;
+
+    initial begin
+        clk_counter = 8'd0;
+    end
+
+    always @(posedge clk) begin
+        if (clk_counter == 8'd4) begin
+            case (opr)
+                6'd0: res = inLeft + inRight;
+                6'd2: res = inLeft - inRight;
+                6'd8: res = inLeft & inRight;
+                6'd9: res = inLeft | inRight;
+                6'd10: res = inLeft ^ inRight;
+                6'd11: res = ~(inLeft | inRight);
+                6'd16: res = inLeft << shift;
+                6'd17: res = inLeft >> shift;
+                6'd18: res = inLeft >>> shift;
+                default: $stop;
+            endcase
+        end
+
+        clk_counter <= clk_counter + 8'd1;
+
+        if (clk_counter == 8'd8) begin
+            clk_counter <= 8'd0;
+        end
+    end
 
     assign result = res;
 
