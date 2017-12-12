@@ -51,15 +51,20 @@ module reg_file(
 
     always @ (negedge rstd or posedge clk) begin
         if (clk_counter == 8'd3) begin
-            if (op == 6'd0) begin
-                rr2_reg <= rf [ra2];
-            end
-            else begin
-                rr2_reg <= imm;
-            end
+            case (op)
+                6'd0: begin
+                    rr2_reg <= rf [ra2];
+                end
+                6'd24: begin
+                    rr2_reg <= rf [ra2];
+                end
+                default: begin
+                    rr2_reg <= imm;
+                end
+            endcase
         end
 
-        if (clk_counter == 8'd6) begin
+        if (clk_counter == 8'd8) begin
             if (rstd == 0) begin
                 rf [0] <= 32'h00000000;
                 //$stop;
@@ -73,7 +78,7 @@ module reg_file(
 
         clk_counter = clk_counter + 8'd1;
 
-        if (clk_counter == 8'd8) begin
+        if (clk_counter == 8'd10) begin
             clk_counter <= 8'd0;
         end
     end

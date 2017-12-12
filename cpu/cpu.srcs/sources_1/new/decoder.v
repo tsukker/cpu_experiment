@@ -110,7 +110,7 @@ module decoder(
 
         clk_counter = clk_counter + 8'd1;
 
-        if (clk_counter == 8'd8) begin
+        if (clk_counter == 8'd10) begin
             clk_counter <= 8'd0;
         end
     end

@@ -22,17 +22,17 @@
 
 module instruction_memory(clk, r_addr, r_data);
      input clk;
-     input [7:0] r_addr;
+     input [10:0] r_addr;
 
      output [31:0] r_data;
-     reg [7:0] addr_reg;
-     reg [31:0] mem [0:31];
+     reg [10:0] addr_reg;
+     reg [31:0] mem [0:255];
 
      reg [7:0] clk_counter;
 
      initial begin
-         $readmemb("C:/workspace/56_6/samples/sample1.bin", mem);
-         addr_reg = 8'b0;
+         $readmemb("C:/workspace/56_6/samples/sample2.bin", mem);
+         addr_reg = 11'b0;
          clk_counter = 8'd0;
      end
 
@@ -44,7 +44,7 @@ module instruction_memory(clk, r_addr, r_data);
 
          clk_counter = clk_counter + 8'd1;
 
-         if (clk_counter == 8'd8) begin
+         if (clk_counter == 8'd10) begin
              clk_counter <= 8'd0;
          end
      end

@@ -42,6 +42,12 @@ module top_module(
     wire [31:0] inLeft;
     wire [31:0] inRight;
 
+    wire [31:0] r_addr;
+    wire [31:0] r_data;
+    wire [31:0] w_addr;
+    wire [31:0] w_data;
+    wire w_enable;
+
     pc pc0 (
         .clk(sysclk),
         .npc(npc),
@@ -50,7 +56,7 @@ module top_module(
 
     instruction_memory icache0 (
         .clk(sysclk),
-        .r_addr(pc[7:0]),
+        .r_addr(pc[10:0]),
         .r_data(ins)
     );
 
@@ -94,10 +100,27 @@ module top_module(
         .clk(sysclk),
         .pc(pc),
         .op(op),
+        .rs(inLeft),
+        .rt(inRight),
+        .imm(imm),
         .addr(addr),
         .alu_result(alu_result),
+        .r_data(r_data),
         .wr(wr),
-        .npc(npc)
+        .npc(npc),
+        .r_addr(r_addr),
+        .w_addr(w_addr),
+        .w_data(w_data),
+        .w_enable(w_enable)
+    );
+
+    data_memory dcache0 (
+        .clk(sysclk),
+        .we(w_enable),
+        .r_addr(r_addr),
+        .r_data(r_data),
+        .w_addr(w_addr),
+        .w_data(w_data)
     );
 
 endmodule
