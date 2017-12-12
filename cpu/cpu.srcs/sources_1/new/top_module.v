@@ -31,6 +31,7 @@ module top_module(
     wire [4:0] ra1;
     wire [4:0] ra2;
     wire [4:0] wa;
+    wire wa_flag;
     wire [31:0] wr;
     wire [31:0] alu_result;
     wire [31:0] npc;
@@ -40,7 +41,6 @@ module top_module(
     wire [25:0] addr;
     wire [31:0] inLeft;
     wire [31:0] inRight;
-    wire wren;
 
     pc pc0 (
         .clk(sysclk),
@@ -55,6 +55,7 @@ module top_module(
     );
 
     decoder decoder0 (
+        .clk(sysclk),
         .instruction(ins),
         .op(op),
         .opr_alu(opr_alu),
@@ -62,6 +63,7 @@ module top_module(
         .ra1(ra1),
         .ra2(ra2),
         .wa(wa),
+        .wa_flag(wa_flag),
         .imm(imm),
         .addr(addr)
     );
@@ -72,7 +74,7 @@ module top_module(
         .ra1(ra1),
         .ra2(ra2),
         .wa(wa),
-        .wren(wren),
+        .wa_flag(wa_flag),
         .op(op),
         .imm(imm),
         .rr1(inLeft),
@@ -96,10 +98,6 @@ module top_module(
         .alu_result(alu_result),
         .wr(wr),
         .npc(npc)
-    );
-
-    data_memory dcache0 (
-
     );
 
 endmodule

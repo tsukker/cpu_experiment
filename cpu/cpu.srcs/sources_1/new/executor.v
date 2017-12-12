@@ -43,9 +43,10 @@ module executor(
     always @(posedge clk) begin
         if (clk_counter == 8'd5) begin
             npc_reg <= pc + 32'd1;
+            //$stop;
         end
 
-        clk_counter <= clk_counter + 8'd1;
+        clk_counter = clk_counter + 8'd1;
 
         if (clk_counter == 8'd8) begin
             clk_counter <= 8'd0;

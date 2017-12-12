@@ -26,7 +26,7 @@ module instruction_memory(clk, r_addr, r_data);
 
      output [31:0] r_data;
      reg [7:0] addr_reg;
-     reg [31:0] mem [0:255];
+     reg [31:0] mem [0:31];
 
      reg [7:0] clk_counter;
 
@@ -42,7 +42,7 @@ module instruction_memory(clk, r_addr, r_data);
              addr_reg <= r_addr;           //読み出しアドレスを同��?
          end
 
-         clk_counter <= clk_counter + 8'd1;
+         clk_counter = clk_counter + 8'd1;
 
          if (clk_counter == 8'd8) begin
              clk_counter <= 8'd0;

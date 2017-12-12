@@ -39,11 +39,17 @@ module alu(
     always @(posedge clk) begin
         if (clk_counter == 8'd4) begin
             case (opr)
-                6'd0: res = inLeft + inRight;
+                6'd0: begin
+                    res = inLeft + inRight;
+                    //$stop;
+                end
                 6'd2: res = inLeft - inRight;
                 6'd8: res = inLeft & inRight;
                 6'd9: res = inLeft | inRight;
-                6'd10: res = inLeft ^ inRight;
+                6'd10: begin
+                    res = inLeft ^ inRight;
+                    //$stop;
+                end
                 6'd11: res = ~(inLeft | inRight);
                 6'd16: res = inLeft << shift;
                 6'd17: res = inLeft >> shift;
@@ -52,7 +58,7 @@ module alu(
             endcase
         end
 
-        clk_counter <= clk_counter + 8'd1;
+        clk_counter = clk_counter + 8'd1;
 
         if (clk_counter == 8'd8) begin
             clk_counter <= 8'd0;

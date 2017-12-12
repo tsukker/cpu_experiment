@@ -41,7 +41,7 @@ module pc(
             pc_reg <= npc;
         end
 
-        clk_counter <= clk_counter + 8'd1;
+        clk_counter = clk_counter + 8'd1;
 
         if (clk_counter == 8'd8) begin
             clk_counter <= 8'd0;
