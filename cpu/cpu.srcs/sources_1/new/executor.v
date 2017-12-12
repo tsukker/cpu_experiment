@@ -84,7 +84,7 @@ module executor(
             endcase
 
             non_branch = pc + 32'b1;
-            branch = non_branch + imm;
+            branch = non_branch + (imm >>> 2'd2);
             case (op)
                 6'd32: begin
                     npc_reg = (rs == rt) ? branch : non_branch;
@@ -98,8 +98,8 @@ module executor(
                 6'd35: begin
                     npc_reg = (rs <= rt) ? branch : non_branch;
                 end
-                6d'40, 6d'41: begin
-                    npc_reg = addr;
+                6'd40, 6'd41: begin
+                    npc_reg = (addr >>> 2'd2);
                 end
                 default: begin
                     npc_reg = non_branch;

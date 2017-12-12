@@ -38,6 +38,7 @@ module top_module(
     wire [31:0] pc;
 
     wire [31:0] imm;
+    wire [31:0] imm_0;
     wire [25:0] addr;
     wire [31:0] inLeft;
     wire [31:0] inRight;
@@ -71,6 +72,7 @@ module top_module(
         .wa(wa),
         .wa_flag(wa_flag),
         .imm(imm),
+        .imm_0(imm_0),
         .addr(addr)
     );
 
@@ -83,6 +85,7 @@ module top_module(
         .wa_flag(wa_flag),
         .op(op),
         .imm(imm),
+        .imm_0(imm_0),
         .rr1(inLeft),
         .rr2(inRight)
     );

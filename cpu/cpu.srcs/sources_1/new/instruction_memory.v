@@ -31,7 +31,7 @@ module instruction_memory(clk, r_addr, r_data);
      reg [7:0] clk_counter;
 
      initial begin
-         $readmemb("C:/workspace/56_6/samples/sample2.bin", mem);
+         $readmemb("C:/workspace/56_6/samples/sample3.bin", mem);
          addr_reg = 11'b0;
          clk_counter = 8'd0;
      end

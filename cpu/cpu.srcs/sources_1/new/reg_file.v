@@ -30,6 +30,7 @@ module reg_file(
     input wa_flag,
     input [5:0] op,
     input [31:0] imm,
+    input [31:0] imm_0,
     output [31:0] rr1,
     output [31:0] rr2
     );
@@ -52,14 +53,14 @@ module reg_file(
     always @ (negedge rstd or posedge clk) begin
         if (clk_counter == 8'd3) begin
             case (op)
-                6'd0: begin
-                    rr2_reg <= rf [ra2];
+                6'd1: begin
+                    rr2_reg <= imm;
                 end
-                6'd24: begin
-                    rr2_reg <= rf [ra2];
+                6'd4, 6'd5, 6'd6: begin
+                    rr2_reg <= imm_0;
                 end
                 default: begin
-                    rr2_reg <= imm;
+                    rr2_reg <= rf [ra2];
                 end
             endcase
         end

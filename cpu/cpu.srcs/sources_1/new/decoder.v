@@ -31,6 +31,7 @@ module decoder(
         output [4:0] wa,
         output wa_flag,
         output [31:0] imm,
+        output [31:0] imm_0,
         output [25:0] addr
     );
 
@@ -124,5 +125,6 @@ module decoder(
     assign wa_flag = wa_flag_reg;
 
     assign imm = {{16{imm_reg[15]}}, imm_reg[15:0]};
+    assign imm_0 = {{16{1'b0}}, imm_reg[15:0]};
     assign addr = instruction[25:0];
 endmodule
