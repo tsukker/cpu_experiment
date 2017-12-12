@@ -45,6 +45,7 @@ module executor(
     reg [31:0] w_data_reg;
     reg w_enable_reg;
 
+    reg [31:0] branch;
     reg [31:0] non_branch;
     reg [31:0] npc_reg;
 
@@ -81,7 +82,29 @@ module executor(
                     $stop;
                 end
             endcase
-            //$stop;
+
+            non_branch = pc + 32'b1;
+            branch = non_branch + imm;
+            case (op)
+                6'd32: begin
+                    npc_reg = (rs == rt) ? branch : non_branch;
+                end
+                6'd33: begin
+                    npc_reg = (rs != rt) ? branch : non_branch;
+                end
+                6'd34: begin
+                    npc_reg = (rs < rt) ? branch : non_branch;
+                end
+                6'd35: begin
+                    npc_reg = (rs <= rt) ? branch : non_branch;
+                end
+                6d'40, 6d'41: begin
+                    npc_reg = addr;
+                end
+                default: begin
+                    npc_reg = non_branch;
+                end
+            endcase
         end
 
         if (clk_counter == 8'd7) begin
@@ -90,8 +113,6 @@ module executor(
                     wr_reg = r_data;
                 end
             endcase
-            npc_reg = pc + 32'b1;
-
         end
 
         clk_counter = clk_counter + 8'd1;
