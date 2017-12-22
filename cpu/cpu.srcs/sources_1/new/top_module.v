@@ -48,7 +48,7 @@ module top_module(
     wire [31:0] w_data;
     wire w_enable;
 
-    pc pc0 (
+    pc_handler pc_handler0 (
         .clk(sysclk),
         .npc(npc),
         .pc(pc)

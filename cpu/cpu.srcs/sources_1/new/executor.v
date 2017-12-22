@@ -98,7 +98,7 @@ module executor(
                 6'd35: begin
                     npc_reg = (rs <= rt) ? branch : non_branch;
                 end
-                6d'40, 6d'41: begin
+                6'd40, 6'd41: begin
                     npc_reg = addr;
                 end
                 default: begin
