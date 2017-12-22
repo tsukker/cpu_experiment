@@ -20,9 +20,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 module testbench();
     reg clk; // input が reg
+    wire [32:0] pc_watch_wire;
 
     top_module T0( // simulation したいやつを instance 化
-        .sysclk(clk)
+        .sysclk(clk),
+        .pc_watch_wire(pc_watch_wire)
     );
 
     initial begin

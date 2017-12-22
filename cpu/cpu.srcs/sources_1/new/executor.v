@@ -78,6 +78,8 @@ module executor(
                     w_enable_reg = 1'b1;
                     //$stop;
                 end
+                6'd32, 6'd33, 6'd34, 6'd35, 6'd40, 6'd41: begin
+                end
                 default: begin
                     $stop;
                 end

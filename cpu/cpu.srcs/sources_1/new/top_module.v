@@ -21,7 +21,8 @@
 
 
 module top_module(
-        input sysclk
+        input sysclk,
+        output [32:0] pc_watch_wire
     );
 
     wire [31:0] ins;
@@ -125,5 +126,7 @@ module top_module(
         .w_addr(w_addr),
         .w_data(w_data)
     );
+
+    assign pc_watch_wire = pc;
 
 endmodule
