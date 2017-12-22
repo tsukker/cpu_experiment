@@ -78,7 +78,7 @@ module executor(
                     w_enable_reg = 1'b1;
                     //$stop;
                 end
-                6'd32, 6'd33, 6'd34, 6'd35, 6'd40, 6'd41: begin
+                6'd32, 6'd33, 6'd34, 6'd35, 6'd40, 6'd41, 6'd42: begin
                 end
                 default: begin
                     $stop;
@@ -100,8 +100,16 @@ module executor(
                 6'd35: begin
                     npc_reg = (rs <= rt) ? branch : non_branch;
                 end
-                6'd40, 6'd41: begin
+                6'd40: begin
                     npc_reg = (addr >>> 2'd2);
+                end
+                6'd41: begin
+                    npc_reg = (addr >>> 2'd2);
+                    wr_reg = non_branch;
+                    //$stop;
+                end
+                6'd42: begin
+                    npc_reg = rs;
                 end
                 default: begin
                     npc_reg = non_branch;

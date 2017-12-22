@@ -20,11 +20,27 @@
 //////////////////////////////////////////////////////////////////////////////////
 module testbench();
     reg clk; // input が reg
-    wire [32:0] pc_watch_wire;
+    wire [31:0] pc_watch;
+    wire [5:0] op_watch;
+    wire [5:0] opr_alu_watch;
+    wire [31:0] inLeft_watch;
+    wire [31:0] inRight_watch;
+    wire [31:0] alu_result_watch;
+    wire [4:0] ra1_watch;
+    wire [4:0] ra2_watch;
+    wire [31:0] rf8_debug_watch;
 
     top_module T0( // simulation したいやつを instance 化
         .sysclk(clk),
-        .pc_watch_wire(pc_watch_wire)
+        .pc_watch(pc_watch),
+        .op_watch(op_watch),
+        .opr_alu_watch(opr_alu_watch),
+        .ra1_watch(ra1_watch),
+        .ra2_watch(ra2_watch),
+        .inLeft_watch(inLeft_watch),
+        .inRight_watch(inRight_watch),
+        .alu_result_watch(alu_result_watch),
+        .rf8_debug_watch(rf8_debug_watch)
     );
 
     initial begin

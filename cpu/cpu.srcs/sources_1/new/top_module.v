@@ -22,8 +22,28 @@
 
 module top_module(
         input sysclk,
-        output [32:0] pc_watch_wire
+        output [31:0] pc_watch,
+        output [5:0] op_watch,
+        output [5:0] opr_alu_watch,
+        output [4:0] ra1_watch,
+        output [4:0] ra2_watch,
+        output [31:0] inLeft_watch,
+        output [31:0] inRight_watch,
+        output [31:0] alu_result_watch,
+        output [31:0] rf8_debug_watch
     );
+
+    assign pc_watch = pc;
+    assign op_watch = op;
+    assign opr_alu_watch = opr_alu;
+    assign ra1_watch = ra1;
+    assign ra2_watch = ra2;
+    assign inLeft_watch = inLeft;
+    assign inRight_watch = inRight;
+    assign alu_result_watch = alu_result;
+    assign rf8_debug_watch = rf8_debug;
+
+    wire [31:0] rf8_debug;
 
     wire [31:0] ins;
     wire [5:0] op;
@@ -88,7 +108,8 @@ module top_module(
         .imm(imm),
         .imm_0(imm_0),
         .rr1(inLeft),
-        .rr2(inRight)
+        .rr2(inRight),
+        .rf8_debug(rf8_debug)
     );
 
     alu alu0 (
@@ -126,7 +147,5 @@ module top_module(
         .w_addr(w_addr),
         .w_data(w_data)
     );
-
-    assign pc_watch_wire = pc;
 
 endmodule

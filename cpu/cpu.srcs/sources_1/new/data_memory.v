@@ -27,13 +27,13 @@ module data_memory(clk, we, r_addr, r_data, w_addr, w_data);
      output [31:0] r_data;
 
      reg [31:0] addr_reg;
-     reg [31:0] mem [0:1023];
+     reg [31:0] mem [0:2047];
 
      reg [7:0] clk_counter;
      integer i;
 
      initial begin
-         for (i=0;i<1024;i=i+1) begin
+         for (i=0;i<2048;i=i+1) begin
              mem[i] = 32'b0;
          end
          clk_counter = 8'd0;

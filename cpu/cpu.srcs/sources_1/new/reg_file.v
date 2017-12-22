@@ -32,15 +32,15 @@ module reg_file(
     input [31:0] imm,
     input [31:0] imm_0,
     output [31:0] rr1,
-    output [31:0] rr2
+    output [31:0] rr2,
+    output [31:0] rf8_debug
     );
     reg [31:0] rf [0:31];
+    reg [31:0] rr1_reg;
     reg [31:0] rr2_reg;
 
     integer i;
     reg [7:0] clk_counter;
-
-    assign rr1 = rf [ra1];
 
     initial begin
         for (i=0;i<32;i=i+1) begin
@@ -52,6 +52,7 @@ module reg_file(
 
     always @ (negedge rstd or posedge clk) begin
         if (clk_counter == 8'd3) begin
+            rr1_reg = rf[ra1];
             case (op)
                 6'd1: begin
                     rr2_reg <= imm;
@@ -70,7 +71,7 @@ module reg_file(
                 rf [0] <= 32'h00000000;
                 //$stop;
             end
-            else if (wa_flag == 0) begin
+            else if (wa_flag == 1'd0) begin
                 rf [wa] <= wr;
                 //$stop;
             end
@@ -83,6 +84,10 @@ module reg_file(
             clk_counter <= 8'd0;
         end
     end
+
+    assign rr1 = rr1_reg;
     assign rr2 = rr2_reg;
+
+    assign rf8_debug = rf[8];
 
 endmodule

@@ -65,11 +65,13 @@ module decoder(
 
     always @(posedge clk) begin
         if (clk_counter == 8'd2) begin
+            op_reg = instruction[31:26];
+            if (op_reg == 6'b111111) $stop;
+
             rs = instruction[25:21];
             rt = instruction[20:16];
             rd = instruction[15:11];
 
-            op_reg = instruction[31:26];
             func_reg = instruction[5:0];
             case (op_reg)
                 6'd0: opr_alu_reg = func_reg;
@@ -94,19 +96,13 @@ module decoder(
                 6'd41: begin
                     wa_reg = 5'd31;
                     wa_flag_reg = 1'd0;
+                    //$stop;
                 end
                 default: begin
                     wa_reg = 5'd0;
                     wa_flag_reg = 1'd1;
                 end
             endcase
-            if (op_reg == 6'd0) begin
-                wa_reg <= rd;
-            end
-            else begin
-                wa_reg <= rt;
-            end
-            // TODO
         end
 
         clk_counter = clk_counter + 8'd1;
