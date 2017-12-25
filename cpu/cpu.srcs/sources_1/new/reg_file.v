@@ -40,18 +40,18 @@ module reg_file(
     reg [31:0] rr2_reg;
 
     integer i;
-    reg [7:0] clk_counter;
+    reg [3:0] clk_counter;
 
     initial begin
         for (i=0;i<32;i=i+1) begin
             rf[i] = 32'b0;
         end
         rr2_reg = 32'b0;
-        clk_counter = 8'd0;
+        clk_counter = 4'd0;
     end
 
     always @ (negedge rstd or posedge clk) begin
-        if (clk_counter == 8'd3) begin
+        if (clk_counter == 4'd2) begin
             rr1_reg = rf[ra1];
             case (op)
                 6'd1: begin
@@ -66,7 +66,7 @@ module reg_file(
             endcase
         end
 
-        if (clk_counter == 8'd8) begin
+        if (clk_counter == 4'd7) begin
             if (rstd == 0) begin
                 rf [0] <= 32'h00000000;
                 //$stop;
@@ -78,10 +78,10 @@ module reg_file(
             //$stop;
         end
 
-        clk_counter = clk_counter + 8'd1;
+        clk_counter = clk_counter + 4'd1;
 
-        if (clk_counter == 8'd10) begin
-            clk_counter <= 8'd0;
+        if (clk_counter == 4'd8) begin
+            clk_counter <= 4'd0;
         end
     end
 

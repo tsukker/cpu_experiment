@@ -29,18 +29,18 @@ module data_memory(clk, we, r_addr, r_data, w_addr, w_data);
      reg [31:0] addr_reg;
      reg [31:0] mem [0:2047];
 
-     reg [7:0] clk_counter;
+     reg [3:0] clk_counter;
      integer i;
 
      initial begin
          for (i=0;i<2048;i=i+1) begin
              mem[i] = 32'b0;
          end
-         clk_counter = 8'd0;
+         clk_counter = 4'd0;
      end
 
      always @(posedge clk) begin
-         if (clk_counter == 8'd6) begin
+         if (clk_counter == 4'd5) begin
              if (we) begin
                  mem[w_addr] <= w_data; //書き込みのタイミングを同期
                  if (w_addr == 31'd516) begin
@@ -52,10 +52,10 @@ module data_memory(clk, we, r_addr, r_data, w_addr, w_data);
 
          end
 
-         clk_counter = clk_counter + 8'd1;
+         clk_counter = clk_counter + 4'd1;
 
-         if (clk_counter == 8'd10) begin
-             clk_counter <= 8'd0;
+         if (clk_counter == 4'd8) begin
+             clk_counter <= 4'd0;
          end
      end
      assign r_data = mem[addr_reg];

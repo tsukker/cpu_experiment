@@ -29,22 +29,22 @@ module pc_handler(
     reg [31:0] pc_reg;
     reg [31:0] current_pc;
 
-    reg [7:0] clk_counter;
+    reg [3:0] clk_counter;
 
     initial begin
         pc_reg = 32'd0;
-        clk_counter = 8'd0;
+        clk_counter = 4'd0;
     end
 
     always @(posedge clk) begin
-        if (clk_counter == 8'd0) begin
+        if (clk_counter == 4'd7) begin
             pc_reg <= npc;
         end
 
-        clk_counter = clk_counter + 8'd1;
+        clk_counter = clk_counter + 4'd1;
 
-        if (clk_counter == 8'd10) begin
-            clk_counter <= 8'd0;
+        if (clk_counter == 4'd8) begin
+            clk_counter <= 4'd0;
         end
     end
 

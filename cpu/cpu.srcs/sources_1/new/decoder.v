@@ -48,7 +48,7 @@ module decoder(
 
     reg [15:0] imm_reg;
 
-    reg [7:0] clk_counter;
+    reg [3:0] clk_counter;
 
     initial begin
         op_reg = 6'd0;
@@ -58,13 +58,13 @@ module decoder(
         rt = 5'd0;
         rd = 5'd0;
         wa_reg = 5'd0;
-        wa_flag_reg = 1'd0;
+        wa_flag_reg = 1'd1;
         imm_reg = 16'd0;
-        clk_counter = 8'd0;
+        clk_counter = 4'd0;
     end
 
     always @(posedge clk) begin
-        if (clk_counter == 8'd2) begin
+        if (clk_counter == 4'd1) begin
             op_reg = instruction[31:26];
             if (op_reg == 6'b111111) $stop;
 
@@ -105,10 +105,10 @@ module decoder(
             endcase
         end
 
-        clk_counter = clk_counter + 8'd1;
+        clk_counter = clk_counter + 4'd1;
 
-        if (clk_counter == 8'd10) begin
-            clk_counter <= 8'd0;
+        if (clk_counter == 4'd8) begin
+            clk_counter <= 4'd0;
         end
     end
 

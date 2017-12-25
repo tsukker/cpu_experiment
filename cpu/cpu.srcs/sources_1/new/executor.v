@@ -49,16 +49,16 @@ module executor(
     reg [31:0] non_branch;
     reg [31:0] npc_reg;
 
-    reg [7:0] clk_counter;
+    reg [3:0] clk_counter;
 
     initial begin
         wr_reg = 32'd0;
         npc_reg = 32'd0;
-        clk_counter = 8'd0;
+        clk_counter = 4'd0;
     end
 
     always @(posedge clk) begin
-        if (clk_counter == 8'd5) begin
+        if (clk_counter == 4'd4) begin
             rs_reg = rs;
             case (op)
                 6'd0, 6'd1, 6'd4, 6'd5, 6'd6: begin
@@ -117,7 +117,7 @@ module executor(
             endcase
         end
 
-        if (clk_counter == 8'd7) begin
+        if (clk_counter == 4'd6) begin
             case (op)
                 6'd16: begin
                     wr_reg = r_data;
@@ -125,10 +125,10 @@ module executor(
             endcase
         end
 
-        clk_counter = clk_counter + 8'd1;
+        clk_counter = clk_counter + 4'd1;
 
-        if (clk_counter == 8'd10) begin
-            clk_counter <= 8'd0;
+        if (clk_counter == 4'd8) begin
+            clk_counter <= 4'd0;
         end
     end
 
